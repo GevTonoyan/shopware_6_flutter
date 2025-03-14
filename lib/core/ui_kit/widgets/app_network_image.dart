@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty/core/ui_kit/widgets/app_loader.dart';
+import 'package:shopware_6/core/ui_kit/widgets/app_loader.dart';
 
 class AppNetworkImage extends StatelessWidget {
   final String url;

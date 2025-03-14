@@ -3,7 +3,7 @@ class ProductsEntity {
   final int pages;
   final List<ProductEntity> products;
 
-  const CharacterPageEntity({
+  const ProductsEntity({
     required this.count,
     required this.pages,
     required this.products,
