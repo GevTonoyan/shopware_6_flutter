@@ -10,9 +10,8 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
 
   @override
   Future<List<ProductEntity>> getProducts() async {
-    const String baseUrl = 'https://shopware66.armdev.am/store-api';
-    Response response = await apiProvider.post(
-      '$baseUrl/product-listing/a515ae260223466f8e37471d279e6406',
+     Response response = await apiProvider.post(
+      '/product-listing/a515ae260223466f8e37471d279e6406',
     );
 
     if (response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
