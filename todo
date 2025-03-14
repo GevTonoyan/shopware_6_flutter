@@ -6,3 +6,4 @@
 5. Convert json to DTO and then convert to Entity (remote data source impl)
 6. Make Http Provider cleaner
 7. Fix WEBM support (now works for ANDROID, but need some improvements, for IOS is not working properly)
+8. Add filtering options in UI and BLoC
