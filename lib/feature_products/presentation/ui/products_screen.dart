@@ -32,11 +32,17 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 return Center(child: Text(message));
               },
               loaded: (products) {
-                return ListView.builder(
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    return ProductCard(product: products[index]);
-                  },
+                return Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: ListView.separated(
+                    itemCount: products.length,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 24);
+                    },
+                    itemBuilder: (context, index) {
+                      return ProductCard(product: products[index]);
+                    },
+                  ),
                 );
               },
               orElse: () {

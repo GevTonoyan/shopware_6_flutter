@@ -26,9 +26,7 @@ class MyApp extends StatelessWidget {
       routerConfig: router,
       title: 'Shopware 6',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         scaffoldBackgroundColor: appTheme.colorPalette.whiteSmoke,
-        fontFamily: 'Lato',
         useMaterial3: true,
       ),
     );
