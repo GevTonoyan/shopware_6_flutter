@@ -1,5 +1,5 @@
-import 'package:rick_and_morty/core/ui_kit/theming/colors/base_color_palette.dart';
-import 'package:rick_and_morty/core/ui_kit/theming/typography/app_typography.dart';
+import 'package:shopware_6/core/ui_kit/theming/colors/base_color_palette.dart';
+import 'package:shopware_6/core/ui_kit/theming/typography/app_typography.dart';
 
 final appTheme = AppTheme();
 

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:rick_and_morty/core/api_provider/http_provider.dart';
+import 'package:shopware_6/core/api_provider/http_provider.dart';
+import 'package:shopware_6/core/utils/constants.dart';
 
 class DioProvider implements HttpProvider {
   final Dio _dio;
@@ -7,21 +8,29 @@ class DioProvider implements HttpProvider {
   DioProvider()
       : _dio = Dio(
           BaseOptions(
-            baseUrl: '',
+            baseUrl: baseURL,
             connectTimeout: const Duration(seconds: 10),
             receiveTimeout: const Duration(seconds: 10),
             headers: {
               'Content-Type': 'application/json',
+              'Accept': 'application/json',
             },
           ),
         );
 
   @override
-  Future<Response> get(String endpoint,
-      {Map<String, dynamic>? params, String? path}) async {
+  Future<Response> get(String endpoint, {Map<String, dynamic>? params, String? path}) async {
     try {
       final url = _buildUrl(endpoint, path);
-      return await _dio.get(url, queryParameters: params);
+      return await _dio.get(
+        url,
+        queryParameters: params,
+        options: Options(
+          headers: {
+            'sw-access-key': apiKey,
+          },
+        ),
+      );
     } on DioException catch (e) {
       return _handleDioError(e);
     }
@@ -29,12 +38,19 @@ class DioProvider implements HttpProvider {
 
   @override
   Future<Response> post(String endpoint,
-      {Map<String, dynamic>? body,
-      Map<String, dynamic>? params,
-      String? path}) async {
+      {Map<String, dynamic>? body, Map<String, dynamic>? params, String? path}) async {
     try {
       final url = _buildUrl(endpoint, path);
-      return await _dio.post(url, data: body, queryParameters: params);
+      return await _dio.post(
+        url,
+        data: body,
+        queryParameters: params,
+        options: Options(
+          headers: {
+            'sw-access-key': apiKey,
+          },
+        ),
+      );
     } on DioException catch (e) {
       return _handleDioError(e);
     }
@@ -42,9 +58,7 @@ class DioProvider implements HttpProvider {
 
   @override
   Future<Response> put(String endpoint,
-      {Map<String, dynamic>? body,
-      Map<String, dynamic>? params,
-      String? path}) async {
+      {Map<String, dynamic>? body, Map<String, dynamic>? params, String? path}) async {
     try {
       final url = _buildUrl(endpoint, path);
       return await _dio.put(url, data: body, queryParameters: params);
@@ -54,8 +68,7 @@ class DioProvider implements HttpProvider {
   }
 
   @override
-  Future<Response> delete(String endpoint,
-      {Map<String, dynamic>? params, String? path}) async {
+  Future<Response> delete(String endpoint, {Map<String, dynamic>? params, String? path}) async {
     try {
       final url = _buildUrl(endpoint, path);
       return await _dio.delete(url, queryParameters: params);

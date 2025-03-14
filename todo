@@ -1,0 +1,9 @@
+1. Add general error handler (maybe mixin)
+2. Add theme switcher and wrap Theme in InheritedWidget (now is being set in main.dart)
+3. Add AuthInterceptor for DIO (not pass the API key)
+4. Add Interceptor for adding header to DIO
+4. Pass apiKey via environment variable or .env json file
+5. Convert json to DTO and then convert to Entity (remote data source impl)
+6. Make Http Provider cleaner
+7. Fix WEBM support (now works for ANDROID, but need some improvements, for IOS is not working properly)
+8. Add filtering options in UI and BLoC
