@@ -1,3 +1,4 @@
+import 'package:shopware_6/feature_products/domain/entities/product_page_entity.dart';
 import 'package:shopware_6/feature_products/domain/repositories/products_repository.dart';
 
 class GetProductsUsecase {
@@ -5,13 +6,11 @@ class GetProductsUsecase {
 
   const GetProductsUsecase(this.repository);
 
-  Future<List<String>> call(GetProductsParams params) async {
+  Future<List<ProductEntity>> call() async {
     return await repository.getProducts();
   }
 }
 
 class GetProductsParams {
-  final int page;
-
-  const GetProductsParams(this.page);
+  const GetProductsParams();
 }

@@ -2,52 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopware_6/core/ui_kit/widgets/app_loader.dart';
 import 'package:shopware_6/feature_products/presentation/bloc/products_bloc.dart';
+import 'package:shopware_6/feature_products/presentation/ui/product_card.dart';
 
-class ProductsScreen extends StatelessWidget {
+class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
+
+  @override
+  State<ProductsScreen> createState() => _ProductsScreenState();
+}
+
+class _ProductsScreenState extends State<ProductsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProductsBloc>().add(const ProductsEvent.getProducts());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.red,
+      body: SafeArea(
         child: BlocBuilder<ProductsBloc, ProductsState>(
           builder: (context, state) {
-            // one button to fetch the products
-            return Column(
-              children: [
-                const SizedBox(height: 200),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<ProductsBloc>().add(
-                          const ProductsEvent.getProducts(),
-                        );
+            return state.maybeWhen(
+              loading: () {
+                return const AppLoader();
+              },
+              error: (message) {
+                return Center(child: Text(message));
+              },
+              loaded: (products) {
+                return ListView.builder(
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    return ProductCard(product: products[index]);
                   },
-                  child: const Text('Fetch Products'),
-                ),
-                // show the products
-                const SizedBox(height: 12),
-                state.maybeWhen(
-                  loading: () {
-                    return const AppLoader();
-                  },
-                  loaded: (products) {
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: products.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(products[index]),
-                          );
-                        },
-                      ),
-                    );
-                  },
-                  orElse: () {
-                    return const SizedBox.shrink();
-                  },
-                )
-              ],
+                );
+              },
+              orElse: () {
+                return const SizedBox.shrink();
+              },
             );
           },
         ),

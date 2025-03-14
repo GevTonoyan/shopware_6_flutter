@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shopware_6/feature_products/domain/entities/product_page_entity.dart';
 import 'package:shopware_6/feature_products/domain/usecases/get_products_usecase.dart';
 
 part 'products_event.dart';
@@ -22,9 +23,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     emit(const ProductsState.loading());
 
     try {
-      await Future.delayed(Duration(seconds: 2));
-      final products = await _getProductsUsecase(const GetProductsParams(1));
-      print('---------------- products $products');
+      final products = await _getProductsUsecase();
       emit(ProductsState.loaded(products: products));
     } on Exception catch (e) {
       emit(ProductsState.error('Error loading products: ${e.toString()}'));

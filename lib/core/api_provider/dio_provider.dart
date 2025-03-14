@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:shopware_6/core/api_provider/http_provider.dart';
+import 'package:shopware_6/core/utils/constants.dart';
 
 class DioProvider implements HttpProvider {
   final Dio _dio;
@@ -7,11 +8,12 @@ class DioProvider implements HttpProvider {
   DioProvider()
       : _dio = Dio(
           BaseOptions(
-            baseUrl: '',
+            baseUrl: baseURL,
             connectTimeout: const Duration(seconds: 10),
             receiveTimeout: const Duration(seconds: 10),
             headers: {
               'Content-Type': 'application/json',
+              'Accept': 'application/json',
             },
           ),
         );
@@ -20,7 +22,15 @@ class DioProvider implements HttpProvider {
   Future<Response> get(String endpoint, {Map<String, dynamic>? params, String? path}) async {
     try {
       final url = _buildUrl(endpoint, path);
-      return await _dio.get(url, queryParameters: params);
+      return await _dio.get(
+        url,
+        queryParameters: params,
+        options: Options(
+          headers: {
+            'sw-access-key': apiKey,
+          },
+        ),
+      );
     } on DioException catch (e) {
       return _handleDioError(e);
     }
@@ -31,7 +41,16 @@ class DioProvider implements HttpProvider {
       {Map<String, dynamic>? body, Map<String, dynamic>? params, String? path}) async {
     try {
       final url = _buildUrl(endpoint, path);
-      return await _dio.post(url, data: body, queryParameters: params);
+      return await _dio.post(
+        url,
+        data: body,
+        queryParameters: params,
+        options: Options(
+          headers: {
+            'sw-access-key': apiKey,
+          },
+        ),
+      );
     } on DioException catch (e) {
       return _handleDioError(e);
     }

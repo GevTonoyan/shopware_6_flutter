@@ -7,7 +7,7 @@ class ProductsState with _$ProductsState {
   const factory ProductsState.loading() = _Loading;
 
   const factory ProductsState.loaded({
-    required List<String> products,
+    required List<ProductEntity> products,
   }) = _Loaded;
 
   const factory ProductsState.error(String error) = _Error;
