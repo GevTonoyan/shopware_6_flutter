@@ -9,13 +9,9 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
 
   @override
   Future<List<String>> getProducts(int page) async {
-    final response = await apiProvider.get(
-      'character',
-      params: {'page': page},
-    );
+    final response = ['111', '222', '333', '444', '555', '666', '777', '888', '999', '000'];
 
-    final res = response as Response<dynamic>;
     //final dto = CharacterPageDto.fromJson(res.data as Map<String, dynamic>);
-    return [''];
+    return response;
   }
 }

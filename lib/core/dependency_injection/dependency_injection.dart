@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:shopware_6/core/api_provider/dio_provider.dart';
 import 'package:shopware_6/core/api_provider/http_provider.dart';
+import 'package:shopware_6/feature_products/products_scope.dart';
 
 final sl = GetIt.instance;
 
@@ -9,4 +10,5 @@ Future<void> setupDependencies() async {
   sl.registerLazySingleton<HttpProvider>(() => DioProvider());
 
   // Features
+  injectProductsScope();
 }
